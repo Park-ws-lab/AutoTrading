@@ -36,7 +36,7 @@ git clone https://github.com/Park-ws-lab/AutoTrading.git
 
 ### 3. 패키지 설치
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 > **`requirements.txt` 예시**
