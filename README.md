@@ -31,7 +31,7 @@ multi_upbit_bot/<br>
 
 ### 2. 저장소 클론
 ```bash
-git clone https://github.com/USERNAME/multi_upbit_bot.git
+git clone https://github.com/Park-ws-lab/AutoTraining.git
 cd multi_upbit_bot
 ```
 
