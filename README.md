@@ -39,6 +39,27 @@ git clone https://github.com/Park-ws-lab/AutoTrading.git
 python3 -m pip install pyupbit
 ```
 
+## 📑 업비트 API 키 발급 방법
+
+1. **업비트 회원가입 & 로그인**  
+   [https://upbit.com](https://upbit.com) 에 접속하여 계정을 생성하고 로그인합니다.
+
+2. **Open API 관리 페이지 이동**  
+   [업비트 Open API 관리](https://upbit.com/mypage/open_api_management)로 들어갑니다.
+
+3. **새 API 키 발급**  
+   - **'Open API Key 생성'** 버튼 클릭.
+   - API 키의 **이름(메모)**를 지정하고 **사용할 기능(자산조회, 주문조회, 주문하기)**을 선택합니다.  
+     - **조회만 테스트하려면 조회 권한만 부여**해도 됩니다.
+   - **IP 제한**  
+     - 특정 IP에서만 접근하도록 제한할 수 있습니다. 서버 IP를 등록해두는 게 안전합니다.  
+       (테스트용이면 **IP 제한 해제** 가능하지만 보안상 권장하지 않음.)
+
+4. **Access Key / Secret Key 확인**  
+   발급 후 **Access Key**와 **Secret Key**를 안전하게 저장하세요.  
+   **Secret Key는 최초 발급 시만 표시**되므로 복사해두지 않으면 다시 확인할 수 없습니다.
+
+
 ---
 
 ## 🚀 실행 방법
