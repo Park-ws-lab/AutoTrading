@@ -39,11 +39,6 @@ git clone https://github.com/Park-ws-lab/AutoTrading.git
 python -m pip install pyupbit
 ```
 
-> **`requirements.txt` 예시**
-> ```
-> pyupbit
-> ```
-
 ---
 
 ## 🚀 실행 방법
