@@ -31,7 +31,7 @@ multi_upbit_bot/<br>
 
 ### 2. 저장소 클론
 ```bash
-git clone https://github.com/Park-ws-lab/AutoTraining.git
+git clone https://github.com/Park-ws-lab/AutoTrading.git
 ```
 
 ### 3. 패키지 설치
