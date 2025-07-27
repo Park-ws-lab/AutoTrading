@@ -36,7 +36,7 @@ git clone https://github.com/Park-ws-lab/AutoTrading.git
 
 ### 3. 패키지 설치
 ```bash
-python -m pip install pyupbit
+python3 -m pip install pyupbit
 ```
 
 ---
