@@ -17,12 +17,12 @@
 ## 📂 프로젝트 구조
 
 AutoTrading/<br>
- ├─ **.env**                   <t><t><t><t><t><t># 세팅 값 ✅<br>
- ├─ **Main.py**                <t><t><t><t><t><t># 실행 루프 스크립트<br>
- ├─ **Strategy.py**            <t><t><t><t><t><t># 매매 전략 스크립트 ✅<br>
- ├─ **Utils.py**               <t><t><t><t><t><t># 매매 함수 라이브러리 <br>
- ├─ **requirements.txt**       <t><t><t><t><t><t># 설치할 Python 패키지 목록<br>
- └─ **README.md**              <t><t><t><t><t><t># 프로젝트 설명<br>
+ ├─ **.env**                   # 세팅 값 ✅<br>
+ ├─ **Main.py**                # 실행 루프 스크립트<br>
+ ├─ **Strategy.py**            # 매매 전략 스크립트 ✅<br>
+ ├─ **Utils.py**               # 매매 함수 라이브러리 <br>
+ ├─ **requirements.txt**       # 설치할 Python 패키지 목록<br>
+ └─ **README.md**              # 프로젝트 설명<br>
 
 여러분이 건드릴 파일은 ✅ 표시 된 파일들 입니다!
 
@@ -38,11 +38,13 @@ AutoTrading/<br>
 - [Python 공식 다운로드](https://www.python.org/downloads/)
 
 ### 2. 저장소 클론
+- 클론을 원하는 폴더로 들어간다. (cd 사용)
 ```bash
 git clone https://github.com/Park-ws-lab/AutoTrading.git
 ```
 
 ### 3. 패키지 설치
+- 클론한 AutoTrading 폴더 안에서 다음 명령어를 입력한다.
 ```bash
 python3 -m pip install -r requirements.txt
 ```
