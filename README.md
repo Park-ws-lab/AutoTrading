@@ -38,7 +38,7 @@ AutoTrading/<br>
 - [Python 공식 다운로드](https://www.python.org/downloads/)
 
 ### 2. 저장소 클론
-- 클론을 원하는 폴더로 들어간다. (cd 사용)
+- 프로젝트를 클론할 폴더로 이동한다. (cd 사용)
 ```bash
 git clone https://github.com/Park-ws-lab/AutoTrading.git
 ```
