@@ -16,10 +16,18 @@
 
 ## 📂 프로젝트 구조
 
-multi_upbit_bot/<br>
- ├─ multi_upbit_bot.py   # 메인 실행 스크립트 (전략/매수/매도/루프)<br>
- ├─ requirements.txt     # 설치할 Python 패키지 목록<br>
- └─ README.md            # 프로젝트 설명<br>
+AutoTrading/<br>
+ ├─ .env                   # 세팅 값 ✅<br>
+ ├─ Main.py                # 실행 루프 스크립트<br>
+ ├─ Strategy.py            # 매매 전략 스크립트 ✅<br>
+ ├─ Utils.py               # 매매 함수 라이브러리 <br>
+ ├─ requirements.txt       # 설치할 Python 패키지 목록<br>
+ └─ README.md              # 프로젝트 설명<br>
+
+여러분이 건드릴 파일은 ✅ 표시 된 파일들 입니다!
+
+‼️ **.env** 파일에서는 매매에 필요한 값들을 설정하고,
+‼️ **Strategy.py** 파일에서 루프가 돌아갈 algorithm 메소드를 작성합니다.
 
 ---
 
@@ -36,7 +44,7 @@ git clone https://github.com/Park-ws-lab/AutoTrading.git
 
 ### 3. 패키지 설치
 ```bash
-python3 -m pip install pyupbit
+python3 -m pip install -r requirements.txt
 ```
 
 ## 📑 업비트 API 키 발급 방법
