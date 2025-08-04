@@ -1,2 +1,5 @@
 pyupbit
 dotenv
+jwt
+numpy
+scikit-learn

@@ -48,7 +48,7 @@ def main():
 
                     if state == "REMOVE":
                         tickers_current.remove(ticker)
-                        utils.cancel_orders_by_ticker(ticker)
+                        # utils.cancel_orders_by_ticker(ticker)
                         utils.sell_market_percentage(upbit, ticker, 1)
                         print(f"[MAIN][DONE] 매매 대상 제거 완료: {ticker}, 현재 매매 대상 개수: {len(tickers_current)}")
                 time.sleep(0.5)
@@ -85,7 +85,7 @@ def main():
 
                     if signal == "REMOVE":
                         tickers_current.remove(ticker)
-                        utils.cancel_orders_by_ticker(upbit, ticker)
+                        # utils.cancel_orders_by_ticker(upbit, ticker)
                         utils.sell_market_percentage(upbit, ticker, 1)
                         print(f"[TRADE][DONE] 매매 대상 제거 완료: {ticker}, 현재 매매 대상 개수: {len(tickers_current)}")
 
