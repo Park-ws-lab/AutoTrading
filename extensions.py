@@ -1,43 +1,95 @@
 import requests
-from pyupbit import Upbit
 import numpy as np
+import math
+import pandas as pd
+from sklearn.linear_model import LinearRegression
 
-def is_volume_spike(df, n, threshold) -> bool:
+
+def get_volume_spike_percentage(df, amount_target: int, amount_before: int) -> float:
     """
-    직전 n봉 평균 거래량 대비 현재봉 거래량이 threshold배 이상이면 True
-    """
-    if df is None or len(df) < n + 1:
-        return False
+    최근 거래량 급등배수를 반환하는 함수
 
-    vol_prev_n = df['volume'].iloc[-n-1:-1]
-    vol_now = df['volume'].iloc[-1]
-
-    avg_vol = vol_prev_n.mean()
-
-    if avg_vol == 0:
-        return False
-
-    return vol_now / avg_vol >= threshold
-
-def calculate_trend_slope(df, n) -> float:
-    """
-    n봉 기준 저점과 고점의 선형 회귀 기울기의 평균값 (추세의 기울기)
+    Args:
+        df (pd.DataFrame): OHLCV 데이터 (시간순 정렬되어 있어야 함)
+        amount_target (int): 현재 구간의 길이 (예: a=3 최근 3봉간의 거래량 평균) -1 ~ -3 [-a:]
+        amount_before (int): 비교 대상 구간의 길이 (예: b=5 이전 5봉간의 거래량 평균) -4 ~ -8 [-a-b:-a-1]
 
     Returns:
-        float: 상승추세면 +값, 하락추세면 -값
+        float: 거래량 급등 비율
+    """
+    # 데이터 충분한지 확인
+    if len(df) < amount_target + amount_before:
+        return False
+
+    # 이전 평균 거래량 (-a-b ~ -a-1)
+    vol_past = df['volume'].iloc[-amount_target-amount_before : -amount_target-1].mean()
+
+    # 현재 평균 거래량 (-a ~ -1)
+    vol_now = df['volume'].iloc[-amount_target:].mean()
+
+    if vol_past == 0:
+        return 0  # 0으로 나누기 방지
+
+    return (vol_now / vol_past)
+
+def is_volume_spike(df, amount_target: int, amount_before: int, threshold: float) -> bool:
+    """
+    최근 거래량 급등 여부를 판단하는 함수
+
+    Args:
+        df (pd.DataFrame): OHLCV 데이터 (시간순 정렬되어 있어야 함)
+        amount_target (int): 현재 구간의 길이 (예: a=3 최근 3봉간의 거래량 평균) -1 ~ -3 [-a:]
+        amount_before (int): 비교 대상 구간의 길이 (예: b=5 이전 5봉간의 거래량 평균) -4 ~ -8 [-a-b:-a-1]
+        threshold (float): 거래량 급등 판단 기준 배수
+
+    Returns:
+        bool: 거래량 급등 여부
+    """
+    # 데이터 충분한지 확인
+    if len(df) < amount_target + amount_before:
+        return False
+
+    # 이전 평균 거래량 (-a-b ~ -a-1)
+    vol_past = df['volume'].iloc[-amount_target-amount_before : -amount_target-1].mean()
+
+    # 현재 평균 거래량 (-a ~ -1)
+    vol_now = df['volume'].iloc[-amount_target:].mean()
+
+    if vol_past == 0:
+        return False  # 0으로 나누기 방지
+
+    return (vol_now / vol_past) >= threshold
+
+
+
+def calculate_trend_slope(df: pd.DataFrame, n: int) -> float:
+    """
+    스캘핑 전용: n초 간의 저점/고점 추세선을 선형회귀로 추정 후, 각도 계산
     """
     if df is None or len(df) < n:
         return 0.0
 
-    lows = df['low'].iloc[-n:].values
-    highs = df['high'].iloc[-n:].values
-    x = np.arange(n)
+    df = df.sort_index()
+    sub_df = df.iloc[-n:]
+    x = np.arange(n).reshape(-1, 1)  # 시간 간격은 상대적으로 1초씩
 
-    # 선형 회귀로 기울기 추정
-    low_slope = np.polyfit(x, lows, deg=1)[0]
-    high_slope = np.polyfit(x, highs, deg=1)[0]
+    lows = sub_df['low'].values
+    highs = sub_df['high'].values
 
-    return (low_slope + high_slope) / 2
+    # 변화폭이 너무 작으면 보합 간주
+    low_range = abs(lows[-1] - lows[0]) / (lows[0] + 1e-8)
+    high_range = abs(highs[-1] - highs[0]) / (highs[0] + 1e-8)
+
+    if low_range < 0.001 and high_range < 0.001:
+        return 0.0
+
+    model_low = LinearRegression().fit(x, lows)
+    model_high = LinearRegression().fit(x, highs)
+
+    avg_slope = (model_low.coef_[0] + model_high.coef_[0]) / 2
+    angle = math.degrees(math.atan(avg_slope))
+
+    return angle
 
 def get_bullish_ratio(df, n=5):
     """
